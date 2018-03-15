@@ -3,8 +3,9 @@
 global.window.jsGithub = require('../mixins/github-db');
 global.window.gitSha1 = require('git-sha1');
 global.window.jsGitFormats = require('js-git/mixins/formats');
+global.window.bodec = require('bodec');
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../mixins/github-db":3,"git-sha1":5,"js-git/mixins/formats":8}],2:[function(require,module,exports){
+},{"../mixins/github-db":3,"bodec":4,"git-sha1":5,"js-git/mixins/formats":8}],2:[function(require,module,exports){
 (function (process){
 "use strict";
 
