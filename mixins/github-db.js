@@ -319,7 +319,7 @@ module.exports = function (repo, root, accessToken, githubHostname) {
         return callback(new Error("Invalid HTTP response: " + xhr.status + " " + result.message));
       }
 
-      callback(null, result.map(function(entry) { return entry.ref }));
+      callback(null, result);
     }
   }
 
