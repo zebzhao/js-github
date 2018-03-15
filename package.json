@@ -20,5 +20,8 @@
     "bodec": "^0.1.0",
     "git-sha1": "^0.1.2",
     "js-git": "^0.7.7"
+  },
+  "scripts": {
+    "build": "browserify build-src/browser.js -o build/js-github.js"
   }
 }
