@@ -48,8 +48,7 @@ module.exports = function (repo, root, accessToken, githubHostname) {
   repo.deleteRef = deleteRef    // (ref) -> null
   repo.createTree = createTree; // (entries) -> hash, tree
   repo.hasHash = hasHash;
-  repo.encoders = encoders;
-  repo.decoders = decoders;
+  repo.hashAs = hashAs;
 
   function loadAs(type, hash, callback) {
     if (!callback) return loadAs.bind(repo, type, hash);
