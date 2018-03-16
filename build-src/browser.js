@@ -1,4 +1,7 @@
-global.window.jsGithub = require('../mixins/github-db');
-global.window.gitSha1 = require('git-sha1');
-global.window.jsGitFormats = require('js-git/mixins/formats');
-global.window.bodec = require('bodec');
+global.window.git = {
+  objectCodec: require('js-git/lib/object-codec'),
+  sha1: require('git-sha1'),
+  github: require('../mixins/github-db'),
+  formats: require('js-git/mixins/formats'),
+  bodec: require('bodec')
+}
