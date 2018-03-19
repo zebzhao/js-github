@@ -5,10 +5,11 @@ global.window.git = {
   sha1: require('git-sha1'),
   github: require('../mixins/github-db'),
   formats: require('js-git/mixins/formats'),
-  bodec: require('bodec')
+  bodec: require('bodec'),
+  modes: require('js-git/lib/modes')
 }
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../mixins/github-db":3,"bodec":4,"git-sha1":5,"js-git/lib/object-codec":7,"js-git/mixins/formats":8}],2:[function(require,module,exports){
+},{"../mixins/github-db":3,"bodec":4,"git-sha1":5,"js-git/lib/modes":6,"js-git/lib/object-codec":7,"js-git/mixins/formats":8}],2:[function(require,module,exports){
 (function (process){
 "use strict";
 
