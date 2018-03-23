@@ -491,7 +491,8 @@ function decodeTree(result) {
   result.tree.forEach(function (entry) {
     tree[entry.path] = {
       mode: parseInt(entry.mode, 8),
-      hash: entry.sha
+      hash: entry.sha,
+      size: entry.size
     };
   });
   return tree;
