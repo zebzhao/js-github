@@ -499,13 +499,7 @@ function decodeTree(result) {
 }
 
 function decodeBlob(result) {
-  if (result.encoding === 'base64') {
-    return bodec.fromBase64(result.content.replace(/\n/g, ''));
-  }
-  if (result.encoding === 'utf-8') {
-    return bodec.fromUtf8(result.content);
-  }
-  throw new Error("Unknown blob encoding: " + result.encoding);
+  return result;
 }
 
 function pickPerson(person) {
