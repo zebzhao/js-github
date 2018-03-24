@@ -64,10 +64,6 @@ module.exports = function (repo, root, accessToken, githubHostname) {
       var body;
       try { body = decoders[type].call(repo, result); }
       catch (err) { return callback(err); }
-      if (hashAs(type, body) !== hash) {
-        if (fixDate(type, body, hash)) console.log(type + " repaired", hash);
-        else console.warn("Unable to repair " + type, hash);
-      }
       typeCache[hash] = type;
       return callback(null, body, hash);
     }
@@ -351,40 +347,6 @@ module.exports = function (repo, root, accessToken, githubHostname) {
 
 };
 
-// GitHub has a nasty habit of stripping whitespace from messages and losing
-// the timezone.  This information is required to make our hashes match up, so
-// we guess it by mutating the value till the hash matches.
-// If we're unable to match, we will just force the hash when saving to the cache.
-function fixDate(type, value, hash) {
-  if (type !== "commit" && type !== "tag") return;
-  // Add up to 3 extra newlines and try all 30-minutes timezone offsets.
-  var clone = JSON.parse(JSON.stringify(value));
-  for (var x = 0; x < 3; x++) {
-    for (var i = -720; i < 720; i += 30) {
-      if (type === "commit") {
-        clone.author.date.offset = i;
-        clone.committer.date.offset = i;
-      }
-      else if (type === "tag") {
-        clone.tagger.date.offset = i;
-      }
-      if (hash !== hashAs(type, clone)) continue;
-      // Apply the changes and return.
-      value.message = clone.message;
-      if (type === "commit") {
-        value.author.date.offset = clone.author.date.offset;
-        value.committer.date.offset = clone.committer.date.offset;
-      }
-      else if (type === "tag") {
-        value.tagger.date.offset = clone.tagger.date.offset;
-      }
-      return true;
-    }
-    clone.message += "\n";
-  }
-  return false;
-}
-
 function mapTreeEntry(entry) {
   if (!entry.mode) throw new TypeError("Invalid entry");
   var mode = modeToString(entry.mode);
@@ -499,7 +461,12 @@ function decodeTree(result) {
 }
 
 function decodeBlob(result) {
-  return result;
+  return {
+    hash: result.sha,
+    content: result.content,
+    encoding: result.encoding,
+    size: result.size
+  };
 }
 
 function pickPerson(person) {
